@@ -1408,7 +1408,10 @@
         ${site.subtitle || '备用数据源，防屏不迷路'}<br>
         <a class="qq-link" href="${site.qqUrl || '#'}" target="_blank" rel="noopener noreferrer">
           ${site.qqText || '猛戳这里加入QQ群: '}<span style="color:#00C853;">${site.qqHighlight || '点击'}</span>
-        </a>
+        </a>${site.tgUrl ? `<br>
+        <a class="qq-link" href="${site.tgUrl}" target="_blank" rel="noopener noreferrer">
+          ${site.tgText || 'TG友情交流群组: '}<span style="color:#229ED9;">${site.tgHighlight || ''}</span>
+        </a>` : ''}
       `;
 
       if (site.footer) footerText.textContent = site.footer;
