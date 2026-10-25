@@ -1,0 +1,14 @@
+[
+  {
+    "name": "X4菠菜园",
+    "date": "",
+    "size": "站长推荐",
+    "origUrl": "https://0.wudaozhe.net/5/x4.json",
+    "urls": [
+      { "label": "备份一线", "url": "https://0.wudaozhe.net/tvbox/X4菠菜园.json" },
+      { "label": "备份二线", "url": "https://0.12yue.de5.net/tvbox/X4菠菜园.json" },
+      { "label": "备份三线", "url": "https://0.cdz.qzz.io/tvbox/X4菠菜园.json" },
+      { "label": "备份四线", "url": "https://0.wdzb.eu.cc/tvbox/X4菠菜园.json" }
+    ]
+  }
+]
