@@ -1,3 +1,6 @@
-.__pycache__/
-*.pyc
-.DS_Store
+zip/
+data/
+*.zip
+__pycache__/
+
+
