@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "海量接口搬运备份",
-    "logo": "vip/jueson.jpg",
+    "logo": "vip/avatar.jpg",
     "subtitle": "备用数据源，防屏不迷路",
     "qqText": "猛戳这里加入QQ群: ",
     "qqHighlight": "点击",
@@ -14,7 +14,7 @@
     "declaration": "本站接口资源由【误道者】整理。所有资源均来自互联网，版权归原作者所有。仅供测试学习使用，请勿用于违法及商业用途，请勿付费购买。如涉及侵权，请联系删除。",
     "contributorsNote": "* 还有部分贡献者因未留下署名信息而未在此列出，同样感谢你们的默默付出。如有遗漏请联系站长补充。",
     "contributors": [
-      { "name": "误道者", "role": "站长 / 资源整理", "desc": "站点发起与接口资源整理", "avatar": "vip/jueson.jpg" },
+      { "name": "误道者", "role": "站长 / 资源整理", "desc": "站点发起与接口资源整理", "avatar": "vip/avatar.jpg" },
       { "name": "沫离", "role": "弹幕分页", "desc": "贡献弹幕书源音乐源漫画源等模块", "avatar": "vip/沫离.jpg" },
       { "name": "简约风<格>", "role": "推广贡献", "desc": "将本网页内嵌 APP 进行推广分发", "avatar": "vip/简约风格.jpg" }
     ],
