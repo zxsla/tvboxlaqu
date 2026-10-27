@@ -471,7 +471,9 @@ def main():
     except Exception:
         pass
 
-    sys.exit(0 if ok_n == len(results) else 2)
+    # 容错：单个源失败不连累整单——只要有成功的就正常退出，成功的产物照常提交；
+    # 全部失败才返回 2 报错。
+    sys.exit(0 if ok_n > 0 else 2)
 
 
 if __name__ == "__main__":
