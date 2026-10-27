@@ -16,6 +16,9 @@ on:
       - 'python/**'
       - '.github/workflows/tvbox_scan.yml'
 
+permissions:
+  contents: write
+
 jobs:
   scan:
     runs-on: ubuntu-latest
@@ -25,7 +28,7 @@ jobs:
       - name: 检出仓库
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
 
       - name: 设置 Python
         uses: actions/setup-python@v5
@@ -68,6 +71,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git pull --rebase --autostash
           git add -A
           # 仅在有变更时提交
           if git diff --cached --quiet; then
