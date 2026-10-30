@@ -7,8 +7,8 @@ concurrency:
 
 on:
   schedule:
-    # 每天北京时间 03:00 运行（UTC 19:00）
-    - cron: '0 19 * * *'
+    # 每天北京时间 03:17 运行（UTC 19:17，避开整点高峰）
+    - cron: '17 19 * * *'
   workflow_dispatch:  # 允许手动触发
   push:
     paths:

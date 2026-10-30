@@ -2,7 +2,7 @@ name: 每日解析在线本地包
 
 on:
   schedule:
-    - cron: "0 17 * * *"   # UTC 17:00 = 北京时间次日 01:00
+    - cron: "17 17 * * *"   # UTC 17:17 = 北京时间次日 01:17（避开整点高峰）
   workflow_dispatch:
     inputs:
       force:
