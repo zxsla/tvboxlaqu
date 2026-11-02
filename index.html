@@ -21,7 +21,7 @@
       }
     })();
 
-    const ENABLE_GUIDE = true;
+    const ENABLE_GUIDE = false;
     const GUIDE_COOLDOWN_MINUTES = 8;
 
     function checkGuideStatus() {
@@ -1961,6 +1961,9 @@
 
       headerSubtitle.innerHTML = `
         ${site.subtitle || '备用数据源，防屏不迷路'}<br>
+        <a class="qq-link" href="${site.tgUrl || 'https://t.me/Eternityvia'}" target="_blank" rel="noopener noreferrer">
+          TG联系人: <span style="color:#00C853;">${site.tgHighlight || '@Eternityvia'}</span>
+        </a><br>
         <a class="qq-link" href="${site.qqUrl || '#'}" target="_blank" rel="noopener noreferrer">
           ${site.qqText || '猛戳这里加入QQ群: '}<span style="color:#00C853;">${site.qqHighlight || '点击'}</span>
         </a>
