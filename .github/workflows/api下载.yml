@@ -2,7 +2,8 @@ name: 每日更新接口
 
 on:
   schedule:
-    - cron: "17 16 * * *"   # UTC 16:17 = 北京时间次日 00:17（避开整点高峰）
+    # 每天一次：UTC 16:17 = 北京时间次日 00:17（避开整点高峰）
+    - cron: "17 16 * * *"
   workflow_dispatch:
     inputs:
       force:
@@ -26,6 +27,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30        # 脚本自带 20 分钟预算，这里是最后一道保险
     steps:
       - uses: actions/checkout@v4
         with:
@@ -39,18 +41,22 @@ jobs:
       - name: 安装依赖
         run: pip install requests urllib3
 
-      - name: 运行 tvbox_get_api
+      - name: 运行 api下载器
         run: |
           ARGS=""
           ${{ github.event.inputs.debug == 'true' && 'ARGS="$ARGS --debug"' || '' }}
           ${{ github.event.inputs.force == 'true' && 'ARGS="$ARGS --force"' || '' }}
-          python python/tvbox_get_api.py $ARGS
+          python python/api下载器.py $ARGS
+        env:
+          # 接口并发数与整轮预算（秒）；到预算即收工，失败接口保留上次产物
+          VOD_WORKERS: "6"
+          VOD_BUDGET: "1200"
 
       - name: 提交产物
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase --autostash
-          git add tvbox/ list.txt
+          git add tvbox/ list.txt SUMMARY.txt
           git commit -m "chore(api): 每日更新接口 $(TZ='CST-8' date +%Y-%m-%d)" || echo "no changes"
           git push

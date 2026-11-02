@@ -38,13 +38,30 @@ h1 {
   width:100%; overflow-x:hidden; flex:1;
   display:flex; flex-direction:column;
 }
-.qq-block {
-  font-size:.76rem; color:#5a6f88; line-height:2;
-  margin-top:6px;
+/* ---- 社交链接列表 ---- */
+.social-list {
+  display:flex; flex-direction:column; gap:8px; margin-top:10px;
 }
-.qq-block .qq-row { margin-top:8px; }
-.qq-block a { color:#4a9eff; text-decoration:none; font-weight:600; }
-.qq-block a:hover { text-decoration:underline; }
+.social-item {
+  display:flex; align-items:center; gap:11px;
+  padding:11px 15px; background:#f7f9fc;
+  border:1px solid #e4ebf3; border-radius:9px;
+  text-decoration:none; color:#1a2b3d;
+  transition:background .15s, border-color .15s, transform .05s;
+  -webkit-tap-highlight-color:transparent; touch-action:manipulation;
+}
+.social-item:hover { background:#eef4ff; border-color:#4a9eff; }
+.social-item:active { transform:scale(.99); }
+.social-icon {
+  width:26px; height:26px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+}
+.social-icon img { width:24px; height:24px; object-fit:contain; display:block; }
+.social-name { font-size:.82rem; font-weight:500; line-height:1.4; }
+.config-tip { font-size:.72rem; color:#b0bcc8; margin-top:12px; line-height:1.6; }
+.config-tip code { background:#f0f3f7; padding:1px 5px; border-radius:4px; color:#5a6f88; }
+.load-error { font-size:.78rem; color:#e74c3c; padding:10px 0; }
+/* ---- 关注与支持快捷入口 ---- */
 .section-title {
   font-size:.85rem; font-weight:700; color:#0a1a2b;
   margin:24px 0 4px;
@@ -73,6 +90,7 @@ h1 {
 .quick-label {
   font-size:.7rem; color:#7a8fa3; line-height:1.2; white-space:nowrap;
 }
+/* ---- 赞赏码弹窗 ---- */
 .zsm-modal {
   position:fixed; inset:0; z-index:999;
   display:flex; align-items:center; justify-content:center;
@@ -150,14 +168,15 @@ h1 {
     </p>
   </div>
   <div class="main-card">
-    <div class="qq-block">
-      QQ 交流群：
-      <div class="qq-row"><a href="https://qm.qq.com/q/ApgHrgV7Y4" target="_blank" rel="noopener noreferrer">一群 1067685939</a></div>
-      <div class="qq-row"><a href="https://qm.qq.com/q/LCBc86ZE4K" target="_blank" rel="noopener noreferrer">二群 963502550</a></div>
-      <div class="qq-row"><a href="https://qm.qq.com/q/syZRStM2ha" target="_blank" rel="noopener noreferrer">三群 931343329</a></div>
-      <div class="qq-row"><a href="https://qm.qq.com/q/KKVaXiuiOe" target="_blank" rel="noopener noreferrer">四群 616843624</a></div>
-      <div class="qq-row"><a href="https://qm.qq.com/q/Bq1QqyQDK0" target="_blank" rel="noopener noreferrer">五群 594253529</a></div>
-    </div>
+    <!-- 动态渲染：本站所辖内容 -->
+    <div class="section-title">📌 本站社群推荐</div>
+    <div class="social-list" id="ownedList"></div>
+
+    <!-- 动态渲染：合作伙伴推荐 -->
+    <div class="section-title">🤝 合作伙伴社群推荐</div>
+    <div class="social-list" id="partnerList"></div>
+
+    <!-- 关注与支持快捷入口 -->
     <div class="section-title">🔗 关注与支持</div>
     <div class="quick-links">
       <a class="quick-item" href="./qq" aria-label="QQ 社群">
@@ -193,6 +212,8 @@ h1 {
     <p>本站接口资源由【误道者】整理。所有资源均来自互联网，版权归原作者所有。仅供测试学习使用，请勿用于违法及商业用途，请勿付费购买。如涉及侵权，请联系删除。</p>
   </footer>
 </div>
+
+<!-- 微信赞赏码弹窗 -->
 <div class="zsm-modal" id="zsmModal" aria-hidden="true">
   <div class="zsm-modal-mask" data-close></div>
   <div class="zsm-modal-panel" role="dialog" aria-modal="true" aria-label="微信赞赏码">
@@ -211,13 +232,61 @@ h1 {
       </svg>
       微信赞赏码
     </div>
-    <img src="./vip/zsm.png" alt="微信赞赏码"
+    <img src="./vip/zsm.jpg" alt="微信赞赏码"
          onerror="this.outerHTML='&lt;p class=&quot;zsm-modal-tip&quot;&gt;赞赏码图片未找到，请检查 ./vip/zsm.png 是否存在。&lt;/p&gt;';">
-    <p class="zsm-modal-tip">长按图片识别，或保存到相册后扫码</p>
+    <p class="zsm-modal-tip">感谢认可，你的每一次赞赏，都是我坚持的底气，万分感谢陪伴</p>
   </div>
 </div>
+
 <script>
 (function () {
+  /* ===== 图标渲染（社群配置中 icon 为图片路径，相对页面 URL 解析） ===== */
+  function getIconHtml(icon) {
+    return '<img src="' + icon + '" alt="" onerror="this.outerHTML=\'<span style=&quot;width:24px;height:24px;background:#d4dbe5;border-radius:6px;display:inline-block&quot;></span>\'">';
+  }
+
+  function renderList(containerId, items) {
+    var box = document.getElementById(containerId);
+    if (!items || !items.length) {
+      box.innerHTML = '<p class="load-error">暂无数据</p>';
+      return;
+    }
+    var html = '';
+    items.forEach(function (it) {
+      html += '<a class="social-item" href="' + it.url + '" target="_blank" rel="noopener noreferrer">'
+            + '<span class="social-icon">' + getIconHtml(it.icon) + '</span>'
+            + '<span class="social-name">' + it.name + '</span>'
+            + '</a>';
+    });
+    box.innerHTML = html;
+  }
+
+  function fetchJson(url) {
+    return fetch(url).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status + ' @ ' + url);
+      return r.json();
+    });
+  }
+
+  /* ===== 加载链：config.json → shgroups 指向的社群配置 → 渲染 ===== */
+  fetchJson('./config.json')
+    .then(function (cfg) {
+      if (!cfg || !cfg.shgroups) {
+        throw new Error('config.json 缺少 shgroups 字段');
+      }
+      return fetchJson(encodeURI(cfg.shgroups));
+    })
+    .then(function (data) {
+      renderList('ownedList', data.owned);
+      renderList('partnerList', data.partners);
+    })
+    .catch(function (e) {
+      document.getElementById('ownedList').innerHTML =
+        '<p class="load-error">配置加载失败：' + e.message + '（请确认 config.json 与 shgroups 指向的文件存在且通过 HTTP 访问）</p>';
+      document.getElementById('partnerList').innerHTML = '';
+    });
+
+  /* ===== 微信赞赏弹窗 ===== */
   var btn   = document.getElementById('zsmBtn');
   var modal = document.getElementById('zsmModal');
   var lastFocus = null;

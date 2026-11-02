@@ -7,17 +7,14 @@ concurrency:
 
 on:
   schedule:
-    # 每天北京时间 03:17 运行（UTC 19:17，避开整点高峰）
+    # 每天一次：UTC 19:17 = 北京时间次日 03:17（避开整点高峰）
     - cron: '17 19 * * *'
   workflow_dispatch:  # 允许手动触发
   push:
+    # 仅在脚本/工作流本身改动时额外跑一次；tvbox/ 是产物目录，变更不必重扫
     paths:
-      - 'tvbox/**'
       - 'python/**'
-      - '.github/workflows/tvbox_scan.yml'
-
-permissions:
-  contents: write
+      - '.github/workflows/接口处理扫描工具.yml'
 
 jobs:
   scan:
@@ -28,7 +25,7 @@ jobs:
       - name: 检出仓库
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: 设置 Python
         uses: actions/setup-python@v5
@@ -55,6 +52,9 @@ jobs:
         env:
           PYTHONIOENCODING: utf-8
           PYTHONUNBUFFERED: "1"
+          # 直播源下载并发数与总预算（秒）；到预算自动收工，不会再把任务拖到超时
+          LIVE_WORKERS: "8"
+          LIVE_BUDGET: "1500"
 
       - name: 汇总输出产物
         run: |
@@ -71,7 +71,6 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git pull --rebase --autostash
           git add -A
           # 仅在有变更时提交
           if git diff --cached --quiet; then
