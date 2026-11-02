@@ -16,6 +16,9 @@ on:
       - 'python/**'
       - '.github/workflows/接口处理扫描工具.yml'
 
+permissions:
+  contents: write
+
 jobs:
   scan:
     runs-on: ubuntu-latest
