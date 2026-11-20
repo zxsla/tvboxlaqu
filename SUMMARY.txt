@@ -1,4 +1,4 @@
-TVBox 接口抓取报告  20261120_070449
+TVBox 接口抓取报告  20261121_064131
 ==============================================================
 
 [X4更新专用接口] 
@@ -11,15 +11,15 @@ TVBox 接口抓取报告  20261120_070449
   文件: None
   成功URL: 
 
-[X4菠菜园] 
-  状态: FAILED
-  文件: None
-  成功URL: 
+[X4菠菜园] okhttp/3.15
+  状态: JSON
+  文件: tvbox/X4菠菜园.json
+  成功URL: https://0.12yue.de5.net/5/x4.json
 
-[X4少儿频道] 
-  状态: FAILED
-  文件: None
-  成功URL: 
+[X4少儿频道] okhttp/3.15
+  状态: JSON
+  文件: tvbox/X4少儿频道.json
+  成功URL: https://0.12yue.de5.net/5/tv少儿.json
 
 [饭太硬] okhttp/3.15
   状态: JSON
