@@ -1,9 +1,9 @@
-饭太硬.json|20261124|16.3K|http://www.饭太硬.net/tv
-摸鱼.json|20261124|28.0K|http://我不是.摸鱼儿.top
-嗷呜.json|20261124|21.4K|https://9763.kstore.vip/aowu.json
-王二小.json|20261124|23.2K|https://9280.kstore.vip/aiwex.json
-潇洒.json|20261124|37.7K|https://9877.kstore.space/sun.json
-X4少儿频道.json|20261124|20.7K|https://0.12yue.de5.net/5/tv少儿.json
-X4菠菜园.json|20261124|42.6K|https://0.12yue.de5.net/5/x4.json
+饭太硬.json|20261125|15.6K|http://www.饭太硬.net/tv
+摸鱼.json|20261125|28.0K|http://我不是.摸鱼儿.top
+嗷呜.json|20261125|20.3K|https://9763.kstore.vip/aowu.json
+王二小.json|20261125|23.2K|https://9280.kstore.vip/aiwex.json
+潇洒.json|20261125|37.7K|https://9877.kstore.space/sun.json
+X4少儿频道.json|20261125|20.7K|https://0.12yue.de5.net/5/tv少儿.json
+X4菠菜园.json|20261125|42.6K|https://0.12yue.de5.net/5/x4.json
 X4菠菜pro.json|20261113|68.5K|https://0.12yue.de5.net/5/x4pro.json
 X4更新专用接口.json|20261112|4.4K|https://0.12yue.de5.net/0/666
